@@ -1,0 +1,28 @@
+services:
+  auth-service:
+    build:
+      context: ./services/auth-service
+      dockerfile: Dockerfile
+    container_name: arogion-auth-service
+    ports:
+      - "8081:8080"
+    environment:
+      DATABASE_USERNAME: ${DATABASE_USERNAME:-arogion}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-Arogion@265}
+      JWT_SECRET: ${JWT_SECRET:-change-this-development-secret-to-a-random-value}
+      JWT_EXPIRATION_SECONDS: ${JWT_EXPIRATION_SECONDS:-3600}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-272154963049-i5pgcs7iepkbepnoreffcb4ig438feul.apps.googleusercontent.com}
+      SMTP_HOST: ${SMTP_HOST:-smtp.gmail.com}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USERNAME: ${SMTP_USERNAME:-arogioninfo@gmail.com}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-qahteylxxltwjeow}
+
+  api-gateway:
+    build:
+      context: ./services/api-gateway
+      dockerfile: Dockerfile
+    container_name: arogion-api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - auth-service
