@@ -1,0 +1,23 @@
+# Build and dependency outputs
+.gradle/
+**/build/
+**/bin/
+
+# IDE and local workspace state
+.idea/
+.vscode/*
+!.vscode/mcp.json
+!.vscode/settings.json
+
+# Runtime and diagnostic logs
+*.log
+hs_err_pid*
+replay_pid*
+
+# Graphify generated runtime metadata and local graph artifacts
+graphify-out/
+
+# Local secrets and environment overrides
+.env
+.env.*
+!.env.example
