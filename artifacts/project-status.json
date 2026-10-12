@@ -1,0 +1,27 @@
+{
+  "project": "Arogion",
+  "status": "graphify-ready",
+  "lastUpdated": "2026-10-11T10:13:36+05:30",
+  "graphify": {
+    "repository": "https://github.com/Graphify-Labs/graphify",
+    "integration": "VS Code Copilot Chat skill and MCP stdio server",
+    "artifactDirectory": "graphify-out",
+    "graphGenerated": true,
+    "cliVersion": "0.9.85",
+    "extractionMode": "code-only",
+    "nodes": 187,
+    "edges": 322,
+    "communities": 17,
+    "artifacts": [
+      "graphify-out/graph.json",
+      "graphify-out/graph.html",
+      "graphify-out/GRAPH_REPORT.md",
+      "graphify-out/manifest.json"
+    ]
+  },
+  "validation": {
+    "graphifyCli": "installed",
+    "mcpConfiguration": "configured",
+    "logsIgnoredByGit": true
+  }
+}
