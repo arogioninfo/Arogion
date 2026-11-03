@@ -1,4 +1,22 @@
 services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: arogion-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-arogion_auth}
+      POSTGRES_USER: ${POSTGRES_USER:-arogion}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-Arogion@265}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-arogion} -d ${POSTGRES_DB:-arogion_auth}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   auth-service:
     build:
       context: ./services/auth-service
@@ -7,6 +25,7 @@ services:
     ports:
       - "8081:8080"
     environment:
+      DATABASE_URL: ${DATABASE_URL:-jdbc:postgresql://postgres:5432/arogion_auth}
       DATABASE_USERNAME: ${DATABASE_USERNAME:-arogion}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD:-Arogion@265}
       JWT_SECRET: ${JWT_SECRET:-change-this-development-secret-to-a-random-value}
@@ -16,6 +35,9 @@ services:
       SMTP_PORT: ${SMTP_PORT:-587}
       SMTP_USERNAME: ${SMTP_USERNAME:-arogioninfo@gmail.com}
       SMTP_PASSWORD: ${SMTP_PASSWORD:-qahteylxxltwjeow}
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   api-gateway:
     build:
@@ -26,3 +48,6 @@ services:
       - "8080:8080"
     depends_on:
       - auth-service
+
+volumes:
+  postgres_data:

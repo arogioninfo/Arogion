@@ -1,0 +1,13 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Arogion Postgres (Docker)",
+      "Group": "Arogion Servers",
+      "Host": "postgres",
+      "Port": 5432,
+      "MaintenanceDB": "arogion_auth",
+      "Username": "arogion",
+      "SSLMode": "prefer"
+    }
+  }
+}
